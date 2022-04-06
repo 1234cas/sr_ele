@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    input {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -100%);
+      border: 2px solid skyblue;
+      height: 30px;
+      font-size: 25px;
+    }
+
+    button {
+      position: absolute;
+      left: 40%;
+      top: 60%;
+      transform: translate(-50%, -100%);
+    }
+
+    .btn2 {
+      left: 60%;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text">
+  <button class="btn1">加密</button>
+  <button class="btn2">解密</button>
+</body>
+<script>
+  const ipt = document.querySelector('input')
+  const btn1 = document.querySelector('.btn1')
+  const btn2 = document.querySelector('.btn2')
+  let random = Math.floor(Math.random() * 10)
+  let result = ''
+  let arr = []
+  let strarr = []
+  var isletter = /^[a-zA-Z]+$/;
+  btn1.addEventListener('click', function () {
+    if (!ipt.value) {
+      alert('请输入密码')
+      return
+    } else if (!/^[a-zA-Z]+$/.test(ipt.value)) {
+      alert('请输入全英文')
+      return
+    }
+    for (let i = 0; i < ipt.value.length; i++) {
+      console.log(ipt.value[i].charCodeAt());
+      arr[i] = ipt.value[i].charCodeAt() + random
+      console.log(arr[i]);
+      arr[i] = arr[i] > 122 ? arr[i] - 26 : arr[i]
+      console.log(arr[i]);
+      strarr[i] = String.fromCharCode(arr[i])
+      result = strarr.join('')
+    }
+    ipt.value = result
+  })
+  btn2.addEventListener('click', function () {
+    if (!ipt.value) {
+      alert('请输入密码')
+      return
+    } else if (! /^[a-zA-Z]+$/.test(ipt.value)) {
+      alert('请输入全英文')
+      return
+    }
+    for (let i = 0; i < ipt.value.length; i++) {
+      console.log(ipt.value[i].charCodeAt());
+      arr[i] = ipt.value[i].charCodeAt() - random
+      console.log(arr[i]);
+      arr[i] = arr[i] > 122 ? arr[i] - 26 : arr[i]
+      console.log(arr[i]);
+      strarr[i] = String.fromCharCode(arr[i])
+      result = strarr.join('')
+    }
+    ipt.value = result
+  })
+</script>
+
+</html>

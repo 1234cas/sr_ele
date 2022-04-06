@@ -1,0 +1,24 @@
+今天有两个问题
+一个是npm run build之后的文件路径一直是绝对路径 百度查的方法一直不行 然后复制了黑马项目的vue.config.vue
+二是element-ui设置的属性是行内属性 然后我把行内属性绑定到组件的data上 但是自定义指令无法设置组件的值 所以就不用自定义指令 在组件的mounted中
+
+vue中在script里面export外面可能会导致有些插件获取不到DOM 比如gsap
+
+vue中使用router切换组件 但是页面内容得刷新才有 是因为我把函数写在mounted里面 解决方法 使用keep-alive包裹router-view 然后把mounted改成activited
+(mounted()方法是挂载钩子，如果使用mounted()钩子方法，需要修改一个Vue的内置组件keep-alive，才能正常渲染DOM。https://blog.csdn.net/m18633778874/article/details/90347113)
+上述操作完后 后在产品里面切什么都是第一个的组件是因为在子路由的父级组件就是该组件 所以每个子路由都有该组件 解决方法 把该组件独立为子组件 再建一个组件其中放router-view
+4-1 总结 太久没写vue了(https://blog.csdn.net/wuzhe128520/article/details/89788512)
+
+上午解决about页面的问题后 product又有问题，是因为我把gsap示例的代码直接复制粘贴到activated里面 会导致运行不了 然后我就把他们整体放到一个函数里面再在activated里面调用
+然后又发现gsap创建的pin-spacer太大是因为是首页的大小 可能是因为单页面应用利用理由跳转造成的 因为刷新一下就好
+又然后搜了几十分钟搜不到 随手一改pin就解决(瞎猫碰上死耗子) 我搜了英文文档看了也不太明白 改之前我觉得可能是但是文档中没有说明
+但是把pin改了首页的显示就有问题 没固定了就
+
+画布就是pin-spacer有问题 在gsap的issue和论坛搜了一上午 最后还是用笨办法解决
+deactivated() {
+    location.reload()
+}
+每次在组件切换时进行刷新页面 就能把pin-spacer刷新
+但是还有问题就是窗口大小变化时会出现问题
+
+没错窗口变化导致页面样式异常也是pin的问题

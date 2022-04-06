@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.0/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #container {
+      width: 100vw;
+      height: 1500px;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .panel {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      will-change: transform;
+    }
+
+    .blue {
+      background-color: blue;
+    }
+
+    .red {
+      background-color: red;
+      background-image: url(https://images.pexels.com/photos/9921341/pexels-photo-9921341.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+
+    }
+
+    .purple {
+      background-color: purple;
+    }
+
+    .orange {
+      background-color: orange;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="description panel blue">
+      <div>
+        <h1>Layered pinning from bottom</h1>
+        <p>A simple example where overlapping panels reveal from the bottom.</p>
+        <div class="scroll-down">Scroll down<div class="arrow"></div>
+        </div>
+      </div>
+    </div>
+    <section class="panel red">
+      <div>
+        ONE
+      </div>
+    </section>
+    <section class="panel orange">
+      <div>
+        TWO
+      </div>
+    </section>
+    <section class="panel purple">
+      THREE
+    </section>
+
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.0/ScrollTrigger.min.js">
+  gsap.registerPlugin(ScrollTrigger);
+
+</script>
+
+<script>
+
+  gsap.to(".panel:not(:last-child)", {
+    yPercent: -100,
+    ease: "none",
+    stagger: 0.5,
+    scrollTrigger: {
+      trigger: "#container",
+      start: "top top",
+      end: "+=300%",
+      scrub: true,
+      pin: true
+    }
+  });
+
+  gsap.set(".panel", { zIndex: (i, target, targets) => targets.length - i });
+
+
+</script>
+
+</html>
